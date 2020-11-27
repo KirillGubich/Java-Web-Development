@@ -1,7 +1,7 @@
 package com.epam.jwd.figure.logic;
 
+import com.epam.jwd.figure.model.FigureFactory;
 import com.epam.jwd.figure.model.Line;
-import com.epam.jwd.figure.model.LineFactory;
 import com.epam.jwd.figure.model.Point;
 import com.epam.jwd.figure.model.PointFactory;
 
@@ -17,7 +17,7 @@ public class LineLogic {
         for (int i = 0; i < count; i++) {
             Point a = PointFactory.createPoint(3 * i, i - 3);
             Point b = PointFactory.createPoint(2 + i, -2 * i);
-            lines[i] = LineFactory.createLine(a, b);
+            lines[i] = (Line) FigureFactory.createFigure("Line", a, b);
         }
 
         return lines;

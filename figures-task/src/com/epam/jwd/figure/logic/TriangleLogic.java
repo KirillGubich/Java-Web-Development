@@ -1,9 +1,9 @@
 package com.epam.jwd.figure.logic;
 
+import com.epam.jwd.figure.model.FigureFactory;
 import com.epam.jwd.figure.model.Point;
 import com.epam.jwd.figure.model.PointFactory;
 import com.epam.jwd.figure.model.Triangle;
-import com.epam.jwd.figure.model.TriangleFactory;
 
 public class TriangleLogic {
 
@@ -14,7 +14,7 @@ public class TriangleLogic {
             Point a = PointFactory.createPoint(2 * i, 4 * i);
             Point b = PointFactory.createPoint(1 + i, i - 1);
             Point c = PointFactory.createPoint(2 + i, i - 2);
-            triangles[i] = TriangleFactory.createTriangle(a, b, c);
+            triangles[i] = (Triangle) FigureFactory.createFigure("Triangle", a, b, c);
         }
 
         return triangles;

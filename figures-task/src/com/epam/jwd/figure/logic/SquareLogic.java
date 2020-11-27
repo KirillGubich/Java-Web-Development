@@ -1,9 +1,9 @@
 package com.epam.jwd.figure.logic;
 
+import com.epam.jwd.figure.model.FigureFactory;
 import com.epam.jwd.figure.model.Point;
 import com.epam.jwd.figure.model.PointFactory;
 import com.epam.jwd.figure.model.Square;
-import com.epam.jwd.figure.model.SquareFactory;
 
 public class SquareLogic {
 
@@ -16,7 +16,7 @@ public class SquareLogic {
             Point c = PointFactory.createPoint(i + 2, i + 2);
             Point d = PointFactory.createPoint(0, i + 2);
 
-            squares[i] = SquareFactory.createSquare(a, b, c, d);
+            squares[i] = (Square) FigureFactory.createFigure("Square", a, b, c, d);
         }
 
         return squares;

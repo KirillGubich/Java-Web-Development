@@ -1,6 +1,5 @@
 package com.epam.jwd.figure.model;
 
-import com.epam.jwd.figure.strategy.FigurePropertiesStrategy;
 import com.epam.jwd.figure.strategy.MultiAngleFigurePropertiesStrategy;
 
 import java.util.Arrays;

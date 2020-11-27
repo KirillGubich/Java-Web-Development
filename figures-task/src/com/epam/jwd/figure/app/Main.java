@@ -4,15 +4,12 @@ import com.epam.jwd.figure.logic.LineLogic;
 import com.epam.jwd.figure.logic.PointLogic;
 import com.epam.jwd.figure.logic.SquareLogic;
 import com.epam.jwd.figure.logic.TriangleLogic;
-import com.epam.jwd.figure.model.Figure;
+import com.epam.jwd.figure.model.FigureFactory;
 import com.epam.jwd.figure.model.Line;
 import com.epam.jwd.figure.model.MultiAngleFigure;
-import com.epam.jwd.figure.model.MultiAngleFigureFactory;
 import com.epam.jwd.figure.model.Point;
-import com.epam.jwd.figure.model.PointFactory;
 import com.epam.jwd.figure.model.Square;
 import com.epam.jwd.figure.model.Triangle;
-import com.epam.jwd.figure.strategy.MultiAngleFigurePropertiesStrategy;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -36,9 +33,12 @@ public class Main {
         Point[] pentagonPoints = PointLogic.createArray(5);
         Point[] hexagonPoints = PointLogic.createArray(6);
 
-        MultiAngleFigure quadrilateral = MultiAngleFigureFactory.createMultiAngleFigure(quadrilateralPoints);
-        MultiAngleFigure pentagon = MultiAngleFigureFactory.createMultiAngleFigure(pentagonPoints);
-        MultiAngleFigure hexagon = MultiAngleFigureFactory.createMultiAngleFigure(hexagonPoints);
+        MultiAngleFigure quadrilateral = (MultiAngleFigure)
+                FigureFactory.createFigure("MultiAngleFigure", quadrilateralPoints);
+        MultiAngleFigure pentagon = (MultiAngleFigure)
+                FigureFactory.createFigure("MultiAngleFigure", pentagonPoints);
+        MultiAngleFigure hexagon = (MultiAngleFigure)
+                FigureFactory.createFigure("MultiAngleFigure", hexagonPoints);
     }
 
     private static void outputPoints(Point[] points) {
