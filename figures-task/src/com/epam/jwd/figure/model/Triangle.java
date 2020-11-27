@@ -1,23 +1,21 @@
 package com.epam.jwd.figure.model;
 
+import com.epam.jwd.figure.strategy.FigurePropertiesStrategy;
+import com.epam.jwd.figure.strategy.TrianglePropertiesStrategy;
+
 import java.util.Objects;
 
-public class Triangle {
+public class Triangle extends Figure{
 
     private Point a;
     private Point b;
     private Point c;
 
-    public Triangle(Point a, Point b, Point c) {
+    Triangle(Point a, Point b, Point c) {
+        super(TrianglePropertiesStrategy.getInstance());
         this.a = a;
         this.b = b;
         this.c = c;
-    }
-
-    public Triangle() {
-        a = new Point();
-        b = new Point();
-        c = new Point();
     }
 
     public Point getA() {

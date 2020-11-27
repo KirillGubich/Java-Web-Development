@@ -1,20 +1,19 @@
 package com.epam.jwd.figure.model;
 
+import com.epam.jwd.figure.strategy.FigurePropertiesStrategy;
+import com.epam.jwd.figure.strategy.LinePropertiesStrategy;
+
 import java.util.Objects;
 
-public class Line {
+public class Line extends Figure{
 
     private Point a;
     private Point b;
 
-    public Line(Point a, Point b) {
+    Line(Point a, Point b) {
+        super(LinePropertiesStrategy.INSTANCE);
         this.a = a;
         this.b = b;
-    }
-
-    public Line() {
-        a = new Point();
-        b = new Point();
     }
 
     public Point getA() {

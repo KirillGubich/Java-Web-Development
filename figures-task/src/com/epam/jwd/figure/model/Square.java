@@ -1,26 +1,23 @@
 package com.epam.jwd.figure.model;
 
+import com.epam.jwd.figure.strategy.FigurePropertiesStrategy;
+import com.epam.jwd.figure.strategy.SquarePropertiesStrategy;
+
 import java.util.Objects;
 
-public class Square {
+public class Square extends Figure{
 
     private Point a;
     private Point b;
     private Point c;
     private Point d;
 
-    public Square(Point a, Point b, Point c, Point d) {
+    Square(Point a, Point b, Point c, Point d) {
+        super(SquarePropertiesStrategy.getInstance());
         this.a = a;
         this.b = b;
         this.c = c;
         this.d = d;
-    }
-
-    public Square() {
-        a = new Point();
-        b = new Point();
-        c = new Point();
-        d = new Point();
     }
 
     public Point getA() {

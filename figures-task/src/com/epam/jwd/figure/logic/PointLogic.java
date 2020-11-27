@@ -1,13 +1,9 @@
 package com.epam.jwd.figure.logic;
 
 import com.epam.jwd.figure.model.Point;
+import com.epam.jwd.figure.model.PointFactory;
 
 public class PointLogic {
-
-    public Point createPoint(double x, double y) {
-
-        return new Point(x, y);
-    }
 
     public static double getDistance(Point a, Point b) {
         double distance;
@@ -16,13 +12,15 @@ public class PointLogic {
         return distance;
     }
 
-    public Point[] createArray(int count) {
+    public static Point[] createArray(int count) {
         Point[] points = new Point[count];
 
         for (int i = 0; i < count; i++) {
-            points[i] = createPoint(i + 2, 5 - i);
+            points[i] = PointFactory.createPoint((int) (Math.random() * 11), (int) (Math.random() * 11));
         }
 
         return points;
     }
+
+
 }

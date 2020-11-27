@@ -1,29 +1,20 @@
 package com.epam.jwd.figure.logic;
 
 import com.epam.jwd.figure.model.Point;
+import com.epam.jwd.figure.model.PointFactory;
 import com.epam.jwd.figure.model.Triangle;
+import com.epam.jwd.figure.model.TriangleFactory;
 
 public class TriangleLogic {
 
-    private final PointLogic POINT_LOGIC;
-
-    public TriangleLogic(PointLogic POINT_LOGIC) {
-        this.POINT_LOGIC = POINT_LOGIC;
-    }
-
-    private Triangle createTriangle(double x1, double y1, double x2, double y2, double x3, double y3) {
-        Point a = POINT_LOGIC.createPoint(x1, y1);
-        Point b = POINT_LOGIC.createPoint(x2, y2);
-        Point c = POINT_LOGIC.createPoint(x3, y3);
-
-        return new Triangle(a, b, c);
-    }
-
-    public Triangle[] createArray(int count) {
+    public static Triangle[] createArray(int count) {
         Triangle[] triangles = new Triangle[count];
 
         for (int i = 0; i < count; i++) {
-            triangles[i] = createTriangle(2 * i, 4 * i, 1 + i, i - 1, 2 + i, i - 2);
+            Point a = PointFactory.createPoint(2 * i, 4 * i);
+            Point b = PointFactory.createPoint(1 + i, i - 1);
+            Point c = PointFactory.createPoint(2 + i, i - 2);
+            triangles[i] = TriangleFactory.createTriangle(a, b, c);
         }
 
         return triangles;
@@ -40,12 +31,12 @@ public class TriangleLogic {
     public boolean hasSamePoints(Triangle triangle) {
 
         return triangle.getA().equals(triangle.getB()) ||
-               triangle.getA().equals(triangle.getC()) ||
-               triangle.getB().equals(triangle.getC());
+                triangle.getA().equals(triangle.getC()) ||
+                triangle.getB().equals(triangle.getC());
 
     }
 
-    private static double[] fetchTriangleSides(Triangle triangle) {
+    public static double[] fetchTriangleSides(Triangle triangle) {
 
         final int SIDE_COUNT = 3;
         double[] triangleSides = new double[SIDE_COUNT];

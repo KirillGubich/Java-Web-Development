@@ -3,11 +3,16 @@ package com.epam.jwd.figure.app;
 import com.epam.jwd.figure.logic.LineLogic;
 import com.epam.jwd.figure.logic.PointLogic;
 import com.epam.jwd.figure.logic.SquareLogic;
+import com.epam.jwd.figure.logic.TriangleLogic;
+import com.epam.jwd.figure.model.Figure;
 import com.epam.jwd.figure.model.Line;
+import com.epam.jwd.figure.model.MultiAngleFigure;
+import com.epam.jwd.figure.model.MultiAngleFigureFactory;
 import com.epam.jwd.figure.model.Point;
+import com.epam.jwd.figure.model.PointFactory;
 import com.epam.jwd.figure.model.Square;
 import com.epam.jwd.figure.model.Triangle;
-import com.epam.jwd.figure.logic.TriangleLogic;
+import com.epam.jwd.figure.strategy.MultiAngleFigurePropertiesStrategy;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,20 +22,23 @@ public class Main {
 
     public static void main(String[] args) {
 
-        PointLogic pointLogic = new PointLogic();
-        LineLogic lineLogic = new LineLogic(pointLogic);
-        TriangleLogic triangleLogic = new TriangleLogic(pointLogic);
-        SquareLogic squareLogic = new SquareLogic(pointLogic);
-
-        Point[] points = pointLogic.createArray(4);
-        Line[] lines = lineLogic.createArray(2);
-        Triangle[] triangles = triangleLogic.createArray(2);
-        Square[] squares = squareLogic.createArray(1);
+        Point[] points = PointLogic.createArray(4);
+        Line[] lines = LineLogic.createArray(2);
+        Triangle[] triangles = TriangleLogic.createArray(2);
+        Square[] squares = SquareLogic.createArray(1);
 
         outputPoints(points);
-        outputLines(lines, lineLogic);
-        OutputTriangles(triangles, triangleLogic);
-        OutputSquares(squares, squareLogic);
+        outputLines(lines);
+        OutputTriangles(triangles);
+        OutputSquares(squares);
+
+        Point[] quadrilateralPoints = PointLogic.createArray(4);
+        Point[] pentagonPoints = PointLogic.createArray(5);
+        Point[] hexagonPoints = PointLogic.createArray(6);
+
+        MultiAngleFigure quadrilateral = MultiAngleFigureFactory.createMultiAngleFigure(quadrilateralPoints);
+        MultiAngleFigure pentagon = MultiAngleFigureFactory.createMultiAngleFigure(pentagonPoints);
+        MultiAngleFigure hexagon = MultiAngleFigureFactory.createMultiAngleFigure(hexagonPoints);
     }
 
     private static void outputPoints(Point[] points) {
@@ -41,7 +49,8 @@ public class Main {
         } while (i < points.length);
     }
 
-    private static void outputLines(Line[] lines, LineLogic lineLogic) {
+    private static void outputLines(Line[] lines) {
+        LineLogic lineLogic = new LineLogic();
         for (Line line : lines) {
             if (!lineLogic.hasSamePoints(line)) {
                 LOGGER.info(line);
@@ -52,7 +61,8 @@ public class Main {
         }
     }
 
-    private static void OutputTriangles(Triangle[] triangles, TriangleLogic triangleLogic) {
+    private static void OutputTriangles(Triangle[] triangles) {
+        TriangleLogic triangleLogic = new TriangleLogic();
         for (Triangle triangle : triangles) {
             if (triangleLogic.isExist(triangle)) {
                 LOGGER.info(triangle);
@@ -64,7 +74,8 @@ public class Main {
         }
     }
 
-    private static void OutputSquares(Square[] squares, SquareLogic squareLogic) {
+    private static void OutputSquares(Square[] squares) {
+        SquareLogic squareLogic = new SquareLogic();
         for (Square square : squares) {
             if (squareLogic.isExist(square)) {
                 LOGGER.info(square);

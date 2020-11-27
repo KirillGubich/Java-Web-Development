@@ -1,32 +1,22 @@
 package com.epam.jwd.figure.logic;
 
 import com.epam.jwd.figure.model.Point;
+import com.epam.jwd.figure.model.PointFactory;
 import com.epam.jwd.figure.model.Square;
+import com.epam.jwd.figure.model.SquareFactory;
 
 public class SquareLogic {
 
-    private final PointLogic POINT_LOGIC;
-
-    public SquareLogic(PointLogic POINT_LOGIC) {
-        this.POINT_LOGIC = POINT_LOGIC;
-    }
-
-    private Square createSquare(double x1, double y1, double x2, double y2,
-                                double x3, double y3, double x4, double y4) {
-
-        Point a = POINT_LOGIC.createPoint(x1, y1);
-        Point b = POINT_LOGIC.createPoint(x2, y2);
-        Point c = POINT_LOGIC.createPoint(x3, y3);
-        Point d = POINT_LOGIC.createPoint(x4, y4);
-
-        return new Square(a, b, c, d);
-    }
-
-    public Square[] createArray(int count) {
+    public static Square[] createArray(int count) {
         Square[] squares = new Square[count];
 
         for (int i = 0; i < count; i++) {
-            squares[i] = createSquare(i, 0, i + 2, 0, i + 2, i + 2, 0, i + 2);
+            Point a = PointFactory.createPoint(i, 0);
+            Point b = PointFactory.createPoint(i + 2, 0);
+            Point c = PointFactory.createPoint(i + 2, i + 2);
+            Point d = PointFactory.createPoint(0, i + 2);
+
+            squares[i] = SquareFactory.createSquare(a, b, c, d);
         }
 
         return squares;
@@ -38,7 +28,7 @@ public class SquareLogic {
         sides = fetchSquareSides(square);
 
         for (int i = 0; i < sides.length - 1; i++) {
-            if (sides[i] != sides[i+1]) {
+            if (sides[i] != sides[i + 1]) {
                 return false;
             }
         }
@@ -55,11 +45,11 @@ public class SquareLogic {
     public boolean hasSamePoints(Square square) {
 
         return square.getA().equals(square.getB()) ||
-               square.getA().equals(square.getC()) ||
-               square.getB().equals(square.getC()) ||
-               square.getD().equals(square.getA()) ||
-               square.getD().equals(square.getB()) ||
-               square.getD().equals(square.getC());
+                square.getA().equals(square.getC()) ||
+                square.getB().equals(square.getC()) ||
+                square.getD().equals(square.getA()) ||
+                square.getD().equals(square.getB()) ||
+                square.getD().equals(square.getC());
     }
 
     private static double[] fetchSquareSides(Square square) {
