@@ -22,7 +22,7 @@ public class TrianglePropertiesStrategy implements FigurePropertiesStrategy {
 
         Triangle triangle = (Triangle) figure;
         double[] sides;
-        sides = TriangleLogic.fetchTriangleSides(triangle);
+        sides = TriangleLogic.getInstance().fetchTriangleSides(triangle);
 
         double halfPerimeter;
         halfPerimeter = (sides[0] + sides[1] + sides[2]) / 3;
@@ -36,7 +36,7 @@ public class TrianglePropertiesStrategy implements FigurePropertiesStrategy {
 
         Triangle triangle = (Triangle) figure;
         double[] sides;
-        sides = TriangleLogic.fetchTriangleSides(triangle);
+        sides = TriangleLogic.getInstance().fetchTriangleSides(triangle);
 
         return sides[0] + sides[1] + sides[2];
     }

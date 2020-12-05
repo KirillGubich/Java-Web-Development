@@ -1,55 +1,40 @@
 package com.epam.jwd.figure.model;
 
-import com.epam.jwd.figure.strategy.FigurePropertiesStrategy;
+import com.epam.jwd.figure.logic.PointLogic;
+import com.epam.jwd.figure.logic.SquareLogic;
 import com.epam.jwd.figure.strategy.SquarePropertiesStrategy;
 
 import java.util.Objects;
 
-public class Square extends Figure{
+public class Square extends Figure {
 
-    private Point a;
-    private Point b;
-    private Point c;
-    private Point d;
+    private final Point A;
+    private final Point B;
+    private final Point C;
+    private final Point D;
 
     Square(Point a, Point b, Point c, Point d) {
         super(SquarePropertiesStrategy.getInstance());
-        this.a = a;
-        this.b = b;
-        this.c = c;
-        this.d = d;
+        this.A = a;
+        this.B = b;
+        this.C = c;
+        this.D = d;
     }
 
     public Point getA() {
-        return a;
-    }
-
-    public void setA(Point a) {
-        this.a = a;
+        return A;
     }
 
     public Point getB() {
-        return b;
-    }
-
-    public void setB(Point b) {
-        this.b = b;
+        return B;
     }
 
     public Point getC() {
-        return c;
-    }
-
-    public void setC(Point c) {
-        this.c = c;
+        return C;
     }
 
     public Point getD() {
-        return d;
-    }
-
-    public void setD(Point d) {
-        this.d = d;
+        return D;
     }
 
     @Override
@@ -57,19 +42,34 @@ public class Square extends Figure{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Square square = (Square) o;
-        return Objects.equals(a, square.a) &&
-                Objects.equals(b, square.b) &&
-                Objects.equals(c, square.c) &&
-                Objects.equals(d, square.d);
+        return Objects.equals(A, square.A) &&
+                Objects.equals(B, square.B) &&
+                Objects.equals(C, square.C) &&
+                Objects.equals(D, square.D);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(a, b, c, d);
+        return Objects.hash(A, B, C, D);
     }
 
     @Override
     public String toString() {
-        return "Square: a = " + a + ", b = " + b + ", c = " + c + ", d = " + d;
+        return "Square: a = " + A + ", b = " + B + ", c = " + C + ", d = " + D;
+    }
+
+    @Override
+    public boolean isExist() {
+
+        double[] sides;
+        sides = SquareLogic.getInstance().fetchSquareSides(this);
+
+        for (int i = 0; i < sides.length - 1; i++) {
+            if (sides[i] != sides[i + 1]) {
+                return false;
+            }
+        }
+
+        return PointLogic.getDistance(A, C) == PointLogic.getDistance(B, D);
     }
 }

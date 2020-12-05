@@ -1,35 +1,27 @@
 package com.epam.jwd.figure.model;
 
-import com.epam.jwd.figure.strategy.FigurePropertiesStrategy;
+import com.epam.jwd.figure.logic.PointLogic;
 import com.epam.jwd.figure.strategy.LinePropertiesStrategy;
 
 import java.util.Objects;
 
-public class Line extends Figure{
+public class Line extends Figure {
 
-    private Point a;
-    private Point b;
+    private final Point A;
+    private final Point B;
 
     Line(Point a, Point b) {
         super(LinePropertiesStrategy.INSTANCE);
-        this.a = a;
-        this.b = b;
+        this.A = a;
+        this.B = b;
     }
 
     public Point getA() {
-        return a;
-    }
-
-    public void setA(Point a) {
-        this.a = a;
+        return A;
     }
 
     public Point getB() {
-        return b;
-    }
-
-    public void setB(Point b) {
-        this.b = b;
+        return B;
     }
 
     @Override
@@ -37,17 +29,23 @@ public class Line extends Figure{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Line line = (Line) o;
-        return Objects.equals(a, line.a) &&
-                Objects.equals(b, line.b);
+        return Objects.equals(A, line.A) &&
+                Objects.equals(B, line.B);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(a, b);
+        return Objects.hash(A, B);
     }
 
     @Override
     public String toString() {
-        return  "Line: a = " + a + ", b = " + b;
+        return "Line: a = " + A + ", b = " + B;
+    }
+
+    @Override
+    public boolean isExist() {
+
+        return !(PointLogic.hasSamePoints(this.getA(), this.getB()));
     }
 }

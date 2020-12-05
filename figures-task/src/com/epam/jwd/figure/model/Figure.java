@@ -17,4 +17,6 @@ public abstract class Figure {
     public FigurePropertiesStrategy executeStrategy() {
         return figurePropertiesStrategy;
     }
+
+    public abstract boolean isExist();
 }

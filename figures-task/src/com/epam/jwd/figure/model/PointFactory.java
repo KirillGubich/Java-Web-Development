@@ -2,7 +2,7 @@ package com.epam.jwd.figure.model;
 
 public class PointFactory {
 
-    private static final int MAX_AMOUNT_OF_POINTS = 64;
+    private static final int MAX_AMOUNT_OF_POINTS = 128;
     private static final Point[] ALL_CREATED_POINTS = new Point[MAX_AMOUNT_OF_POINTS];
     private static int amountOfPoints;
 

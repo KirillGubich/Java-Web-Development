@@ -1,5 +1,6 @@
 package com.epam.jwd.figure.model;
 
+import com.epam.jwd.figure.logic.PointLogic;
 import com.epam.jwd.figure.strategy.MultiAngleFigurePropertiesStrategy;
 
 import java.util.Arrays;
@@ -8,24 +9,20 @@ import java.util.Objects;
 public class MultiAngleFigure extends Figure {
 
     private final int AMOUNT_OF_ANGLES;
-    private Point[] points;
+    private final Point[] POINTS;
 
-    MultiAngleFigure(Point[] points) {
+    MultiAngleFigure(Point[] POINTS) {
         super(MultiAngleFigurePropertiesStrategy.INSTANCE);
-        AMOUNT_OF_ANGLES = points.length;
-        this.points = points;
+        AMOUNT_OF_ANGLES = POINTS.length;
+        this.POINTS = POINTS;
     }
 
     public int getAMOUNT_OF_ANGLES() {
         return AMOUNT_OF_ANGLES;
     }
 
-    public Point[] getPoints() {
-        return points;
-    }
-
-    public void setPoints(Point[] points) {
-        this.points = points;
+    public Point[] getPOINTS() {
+        return POINTS;
     }
 
     @Override
@@ -34,13 +31,13 @@ public class MultiAngleFigure extends Figure {
         if (o == null || getClass() != o.getClass()) return false;
         MultiAngleFigure that = (MultiAngleFigure) o;
         return AMOUNT_OF_ANGLES == that.AMOUNT_OF_ANGLES &&
-                Arrays.equals(points, that.points);
+                Arrays.equals(POINTS, that.POINTS);
     }
 
     @Override
     public int hashCode() {
         int result = Objects.hash(AMOUNT_OF_ANGLES);
-        result = 31 * result + Arrays.hashCode(points);
+        result = 31 * result + Arrays.hashCode(POINTS);
         return result;
     }
 
@@ -48,6 +45,12 @@ public class MultiAngleFigure extends Figure {
     public String toString() {
         return "MultiAngleFigure: " +
                 "AMOUNT_OF_ANGLES: " + AMOUNT_OF_ANGLES +
-                ", points: " + Arrays.toString(points);
+                ", points: " + Arrays.toString(POINTS);
+    }
+
+    @Override
+    public boolean isExist() {
+
+        return !(PointLogic.hasSamePoints(this.getPOINTS()));
     }
 }

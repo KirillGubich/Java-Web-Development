@@ -1,8 +1,19 @@
 package com.epam.jwd.figure.model;
 
+import com.epam.jwd.figure.exception.FigureException;
+import com.epam.jwd.figure.exception.FigureNotExistException;
+import com.epam.jwd.figure.exception.NumberOfFiguresExceededException;
+import com.epam.jwd.figure.service.FigurePostProcessor;
+import com.epam.jwd.figure.service.FigurePreProcessor;
+import com.epam.jwd.figure.service.impl.FigureExistencePostProcessor;
+import com.epam.jwd.figure.service.impl.FigureHasSamePointsPreProcessor;
+
 import java.util.Arrays;
 
 public class FigureFactory {
+
+    private static final FigurePreProcessor[] FIGURE_PRE_PROCESSORS = {FigureHasSamePointsPreProcessor.getInstance()};
+    private static final FigurePostProcessor[] FIGURE_POST_PROCESSORS = {FigureExistencePostProcessor.getInstance()};
 
     private static final int MAX_AMOUNT_OF_LINES = 32;
     private static final Line[] ALL_CREATED_LINES = new Line[MAX_AMOUNT_OF_LINES];
@@ -21,20 +32,58 @@ public class FigureFactory {
             new MultiAngleFigure[MAX_AMOUNT_OF_MULTI_ANGLE_FIGURES];
     private static int amountOfMultiAngleFigures;
 
+    public static Figure createFigure(String figureName, Point... figurePoints) throws FigureException {
 
-    public static Figure createFigure(String figureName, Point... figurePoints) {
+        for (FigurePreProcessor figurePreProcessor : FIGURE_PRE_PROCESSORS) {
+            figurePoints = figurePreProcessor.process(figurePoints);
+        }
+
+        Figure figure;
+
         switch (figureName) {
             case "Line":
-                return fetchLineFromCacheOrCreate(figurePoints[0], figurePoints[1]);
+                figure = fetchLineFromCacheOrCreate(figurePoints[0], figurePoints[1]);
+                break;
             case "Triangle":
-                return fetchTriangleFromCacheOrCreate(figurePoints[0], figurePoints[1], figurePoints[2]);
+                figure = fetchTriangleFromCacheOrCreate(figurePoints[0], figurePoints[1], figurePoints[2]);
+                break;
             case "Square":
-                return fetchSquareFromCacheOrCreate(figurePoints[0], figurePoints[1], figurePoints[2], figurePoints[3]);
+                figure = fetchSquareFromCacheOrCreate(figurePoints[0], figurePoints[1], figurePoints[2], figurePoints[3]);
+                break;
             case "MultiAngleFigure":
-                return fetchMultiAngleFigureFromCacheOrCreate(figurePoints);
+                figure = fetchMultiAngleFigureFromCacheOrCreate(figurePoints);
+                break;
             default:
-                return null;
+                throw new FigureNotExistException("Figure not exist");
         }
+
+        for (FigurePostProcessor figurePostProcessor : FIGURE_POST_PROCESSORS) {
+            figure = figurePostProcessor.process(figure);
+        }
+
+        addFigureToCache(figureName, figure);
+        return figure;
+    }
+
+    private static void addFigureToCache(String figureName, Figure figure) throws FigureException {
+
+        switch (figureName) {
+            case "Line":
+                addLineToCache((Line) figure);
+                break;
+            case "Triangle":
+                addTriangleToCache((Triangle) figure);
+                break;
+            case "Square":
+                addSquareToCache((Square) figure);
+                break;
+            case "MultiAngleFigure":
+                addMultiAngleFigureToCache((MultiAngleFigure) figure);
+                break;
+            default:
+                throw new FigureNotExistException("Figure not exist");
+        }
+
     }
 
     private static void addLineToCache(Line line) {
@@ -42,7 +91,7 @@ public class FigureFactory {
         ALL_CREATED_LINES[amountOfLines - 1] = line;
     }
 
-    private static Line fetchLineFromCacheOrCreate(Point a, Point b) {
+    private static Line fetchLineFromCacheOrCreate(Point a, Point b) throws FigureException {
 
         for (int i = 0; i < amountOfLines; i++) {
             if (ALL_CREATED_LINES[i].getA().equals(a) && ALL_CREATED_LINES[i].getB().equals(b)) {
@@ -51,12 +100,10 @@ public class FigureFactory {
         }
 
         if (amountOfLines == MAX_AMOUNT_OF_LINES) {
-            return null;
+            throw new NumberOfFiguresExceededException("Number of figures exceeded");
         }
 
-        Line line = new Line(a, b);
-        addLineToCache(line);
-        return line;
+        return new Line(a, b);
     }
 
     private static void addTriangleToCache(Triangle triangle) {
@@ -64,7 +111,7 @@ public class FigureFactory {
         ALL_CREATED_TRIANGLES[amountOfTriangles - 1] = triangle;
     }
 
-    private static Triangle fetchTriangleFromCacheOrCreate(Point a, Point b, Point c) {
+    private static Triangle fetchTriangleFromCacheOrCreate(Point a, Point b, Point c) throws FigureException {
 
         for (int i = 0; i < amountOfTriangles; i++) {
             if (ALL_CREATED_TRIANGLES[i].getA().equals(a) && ALL_CREATED_TRIANGLES[i].getB().equals(b) &&
@@ -74,12 +121,10 @@ public class FigureFactory {
         }
 
         if (amountOfTriangles == MAX_AMOUNT_OF_TRIANGLES) {
-            return null;
+            throw new NumberOfFiguresExceededException("Number of figures exceeded");
         }
 
-        Triangle triangle = new Triangle(a, b, c);
-        addTriangleToCache(triangle);
-        return triangle;
+        return new Triangle(a, b, c);
     }
 
     private static void addSquareToCache(Square square) {
@@ -87,7 +132,7 @@ public class FigureFactory {
         ALL_CREATED_SQUARES[amountOfSquares - 1] = square;
     }
 
-    private static Square fetchSquareFromCacheOrCreate(Point a, Point b, Point c, Point d) {
+    private static Square fetchSquareFromCacheOrCreate(Point a, Point b, Point c, Point d) throws FigureException {
 
         for (int i = 0; i < amountOfSquares; i++) {
             if (ALL_CREATED_SQUARES[i].getA().equals(a) && ALL_CREATED_SQUARES[i].getB().equals(b) &&
@@ -97,12 +142,10 @@ public class FigureFactory {
         }
 
         if (amountOfSquares == MAX_AMOUNT_OF_SQUARES) {
-            return null;
+            throw new NumberOfFiguresExceededException("Number of figures exceeded");
         }
 
-        Square square = new Square(a, b, c, d);
-        addSquareToCache(square);
-        return square;
+        return new Square(a, b, c, d);
     }
 
     private static void addMultiAngleFigureToCache(MultiAngleFigure multiAngleFigure) {
@@ -110,21 +153,19 @@ public class FigureFactory {
         ALL_CREATED_MULTI_ANGLE_FIGURES[amountOfMultiAngleFigures - 1] = multiAngleFigure;
     }
 
-    private static MultiAngleFigure fetchMultiAngleFigureFromCacheOrCreate(Point[] points) {
+    private static MultiAngleFigure fetchMultiAngleFigureFromCacheOrCreate(Point[] points) throws FigureException {
 
         for (int i = 0; i < amountOfMultiAngleFigures; i++) {
-            if (Arrays.equals(ALL_CREATED_MULTI_ANGLE_FIGURES[i].getPoints(), points)) {
+            if (Arrays.equals(ALL_CREATED_MULTI_ANGLE_FIGURES[i].getPOINTS(), points)) {
                 return ALL_CREATED_MULTI_ANGLE_FIGURES[i];
             }
         }
 
         if (amountOfMultiAngleFigures == MAX_AMOUNT_OF_MULTI_ANGLE_FIGURES) {
-            return null;
+            throw new NumberOfFiguresExceededException("Number of figures exceeded");
         }
 
-        MultiAngleFigure multiAngleFigure = new MultiAngleFigure(points);
-        addMultiAngleFigureToCache(multiAngleFigure);
-        return multiAngleFigure;
+        return new MultiAngleFigure(points);
     }
 
 }

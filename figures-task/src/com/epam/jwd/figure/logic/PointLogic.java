@@ -22,5 +22,18 @@ public class PointLogic {
         return points;
     }
 
+    public static boolean hasSamePoints(Point... points) {
+
+        for (int i = 0; i < points.length - 1; i++) {
+            for (int j = i + 1; j < points.length; j++) {
+
+                if (points[i].equals(points[j])) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 
 }

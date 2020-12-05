@@ -1,45 +1,33 @@
 package com.epam.jwd.figure.model;
 
-import com.epam.jwd.figure.strategy.FigurePropertiesStrategy;
+import com.epam.jwd.figure.logic.TriangleLogic;
 import com.epam.jwd.figure.strategy.TrianglePropertiesStrategy;
 
 import java.util.Objects;
 
-public class Triangle extends Figure{
+public class Triangle extends Figure {
 
-    private Point a;
-    private Point b;
-    private Point c;
+    private final Point A;
+    private final Point B;
+    private final Point C;
 
     Triangle(Point a, Point b, Point c) {
         super(TrianglePropertiesStrategy.getInstance());
-        this.a = a;
-        this.b = b;
-        this.c = c;
+        this.A = a;
+        this.B = b;
+        this.C = c;
     }
 
     public Point getA() {
-        return a;
-    }
-
-    public void setA(Point a) {
-        this.a = a;
+        return A;
     }
 
     public Point getB() {
-        return b;
-    }
-
-    public void setB(Point b) {
-        this.b = b;
+        return B;
     }
 
     public Point getC() {
-        return c;
-    }
-
-    public void setC(Point c) {
-        this.c = c;
+        return C;
     }
 
     @Override
@@ -47,18 +35,27 @@ public class Triangle extends Figure{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Triangle triangle = (Triangle) o;
-        return Objects.equals(a, triangle.a) &&
-                Objects.equals(b, triangle.b) &&
-                Objects.equals(c, triangle.c);
+        return Objects.equals(A, triangle.A) &&
+                Objects.equals(B, triangle.B) &&
+                Objects.equals(C, triangle.C);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(a, b, c);
+        return Objects.hash(A, B, C);
     }
 
     @Override
     public String toString() {
-        return "Triangle: a = " + a + ", b = " + b + ", c = " + c;
+        return "Triangle: a = " + A + ", b = " + B + ", c = " + C;
+    }
+
+    @Override
+    public boolean isExist() {
+
+        double[] sides;
+        sides = TriangleLogic.getInstance().fetchTriangleSides(this);
+
+        return sides[0] < sides[1] + sides[2] && sides[1] < sides[0] + sides[2] && sides[2] < sides[0] + sides[1];
     }
 }

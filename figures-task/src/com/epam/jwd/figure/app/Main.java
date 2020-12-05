@@ -14,9 +14,9 @@ public class Main {
     public static void main(String[] args) {
 
         PointView.outputPoints(PointLogic.createArray(4));
-        LineView.outputLines(LineLogic.createArray(2));
-        TriangleView.outputTriangles(TriangleLogic.createArray(2));
-        SquareView.outputSquares(SquareLogic.createArray(1));
+        LineView.outputLines(LineLogic.getInstance().createArray(2));
+        TriangleView.outputTriangles(TriangleLogic.getInstance().createArray(2));
+        SquareView.outputSquares(SquareLogic.getInstance().createArray(1));
     }
 
 }
