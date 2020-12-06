@@ -39,37 +39,97 @@ public class FigureFactory {
         }
 
         Figure figure;
+        figure = fetchFigureFromCache(figureName, figurePoints);
 
-        switch (figureName) {
-            case "Line":
-                figure = fetchLineFromCacheOrCreate(figurePoints[0], figurePoints[1]);
-                break;
-            case "Triangle":
-                figure = fetchTriangleFromCacheOrCreate(figurePoints[0], figurePoints[1], figurePoints[2]);
-                break;
-            case "Square":
-                figure = fetchSquareFromCacheOrCreate(figurePoints[0], figurePoints[1], figurePoints[2], figurePoints[3]);
-                break;
-            case "MultiAngleFigure":
-                figure = fetchMultiAngleFigureFromCacheOrCreate(figurePoints);
-                break;
-            default:
-                throw new FigureNotExistException("Figure not exist");
+        if (figure == null) {
+            figure = createNewFigure(figureName, figurePoints);
         }
 
         for (FigurePostProcessor figurePostProcessor : FIGURE_POST_PROCESSORS) {
             figure = figurePostProcessor.process(figure);
         }
 
+        addFigureToCache(figureName, figure);
         return figure;
     }
 
-    private static void addLineToCache(Line line) {
+    private static Figure fetchFigureFromCache(String figureName, Point... figurePoints) throws FigureException {
+        Figure figure;
+
+        switch (figureName) {
+            case "Line":
+                figure = fetchLineFromCache(figurePoints[0], figurePoints[1]);
+                break;
+            case "Triangle":
+                figure = fetchTriangleFromCache(figurePoints[0], figurePoints[1], figurePoints[2]);
+                break;
+            case "Square":
+                figure = fetchSquareFromCache(figurePoints[0], figurePoints[1], figurePoints[2], figurePoints[3]);
+                break;
+            case "MultiAngleFigure":
+                figure = fetchMultiAngleFigureFromCache(figurePoints);
+                break;
+            default:
+                throw new FigureNotExistException("Figure not exist");
+        }
+
+        return figure;
+    }
+
+    private static Figure createNewFigure(String figureName, Point... figurePoints) throws FigureException {
+        Figure figure;
+
+        switch (figureName) {
+            case "Line":
+                figure = new Line(figurePoints[0], figurePoints[1]);
+                break;
+            case "Triangle":
+                figure = new Triangle(figurePoints[0], figurePoints[1], figurePoints[2]);
+                break;
+            case "Square":
+                figure = new Square(figurePoints[0], figurePoints[1], figurePoints[2], figurePoints[3]);
+                break;
+            case "MultiAngleFigure":
+                figure = new MultiAngleFigure(figurePoints);
+                break;
+            default:
+                throw new FigureNotExistException("Figure not exist");
+        }
+
+        return figure;
+    }
+
+    private static void addFigureToCache(String figureName, Figure figure) throws FigureException {
+
+        switch (figureName) {
+            case "Line":
+                addLineToCache((Line) figure);
+                break;
+            case "Triangle":
+                addTriangleToCache((Triangle) figure);
+                break;
+            case "Square":
+                addSquareToCache((Square) figure);
+                break;
+            case "MultiAngleFigure":
+                addMultiAngleFigureToCache((MultiAngleFigure) figure);
+                break;
+            default:
+                throw new FigureNotExistException("Figure not exist");
+        }
+    }
+
+    private static void addLineToCache(Line line) throws FigureException {
+
+        if (amountOfLines == MAX_AMOUNT_OF_LINES) {
+            throw new NumberOfFiguresExceededException("Number of figures exceeded");
+        }
+
         amountOfLines++;
         ALL_CREATED_LINES[amountOfLines - 1] = line;
     }
 
-    private static Line fetchLineFromCacheOrCreate(Point a, Point b) throws FigureException {
+    private static Line fetchLineFromCache(Point a, Point b) {
 
         for (int i = 0; i < amountOfLines; i++) {
             if (ALL_CREATED_LINES[i].getA().equals(a) && ALL_CREATED_LINES[i].getB().equals(b)) {
@@ -77,21 +137,20 @@ public class FigureFactory {
             }
         }
 
-        if (amountOfLines == MAX_AMOUNT_OF_LINES) {
+        return null;
+    }
+
+    private static void addTriangleToCache(Triangle triangle) throws FigureException {
+
+        if (amountOfTriangles == MAX_AMOUNT_OF_TRIANGLES) {
             throw new NumberOfFiguresExceededException("Number of figures exceeded");
         }
 
-        Line line = new Line(a, b);
-        addLineToCache(line);
-        return line;
-    }
-
-    private static void addTriangleToCache(Triangle triangle) {
         amountOfTriangles++;
         ALL_CREATED_TRIANGLES[amountOfTriangles - 1] = triangle;
     }
 
-    private static Triangle fetchTriangleFromCacheOrCreate(Point a, Point b, Point c) throws FigureException {
+    private static Triangle fetchTriangleFromCache(Point a, Point b, Point c) throws FigureException {
 
         for (int i = 0; i < amountOfTriangles; i++) {
             if (ALL_CREATED_TRIANGLES[i].getA().equals(a) && ALL_CREATED_TRIANGLES[i].getB().equals(b) &&
@@ -100,21 +159,20 @@ public class FigureFactory {
             }
         }
 
-        if (amountOfTriangles == MAX_AMOUNT_OF_TRIANGLES) {
+        return null;
+    }
+
+    private static void addSquareToCache(Square square) throws FigureException {
+
+        if (amountOfSquares == MAX_AMOUNT_OF_SQUARES) {
             throw new NumberOfFiguresExceededException("Number of figures exceeded");
         }
 
-        Triangle triangle = new Triangle(a, b, c);
-        addTriangleToCache(triangle);
-        return triangle;
-    }
-
-    private static void addSquareToCache(Square square) {
         amountOfSquares++;
         ALL_CREATED_SQUARES[amountOfSquares - 1] = square;
     }
 
-    private static Square fetchSquareFromCacheOrCreate(Point a, Point b, Point c, Point d) throws FigureException {
+    private static Square fetchSquareFromCache(Point a, Point b, Point c, Point d) {
 
         for (int i = 0; i < amountOfSquares; i++) {
             if (ALL_CREATED_SQUARES[i].getA().equals(a) && ALL_CREATED_SQUARES[i].getB().equals(b) &&
@@ -123,20 +181,20 @@ public class FigureFactory {
             }
         }
 
-        if (amountOfSquares == MAX_AMOUNT_OF_SQUARES) {
-            throw new NumberOfFiguresExceededException("Number of figures exceeded");
-        }
-        Square square = new Square(a, b, c, d);
-        addSquareToCache(square);
-        return square;
+        return null;
     }
 
-    private static void addMultiAngleFigureToCache(MultiAngleFigure multiAngleFigure) {
+    private static void addMultiAngleFigureToCache(MultiAngleFigure multiAngleFigure) throws FigureException {
+
+        if (amountOfMultiAngleFigures == MAX_AMOUNT_OF_MULTI_ANGLE_FIGURES) {
+            throw new NumberOfFiguresExceededException("Number of figures exceeded");
+        }
+
         amountOfMultiAngleFigures++;
         ALL_CREATED_MULTI_ANGLE_FIGURES[amountOfMultiAngleFigures - 1] = multiAngleFigure;
     }
 
-    private static MultiAngleFigure fetchMultiAngleFigureFromCacheOrCreate(Point[] points) throws FigureException {
+    private static MultiAngleFigure fetchMultiAngleFigureFromCache(Point[] points) {
 
         for (int i = 0; i < amountOfMultiAngleFigures; i++) {
             if (Arrays.equals(ALL_CREATED_MULTI_ANGLE_FIGURES[i].getPOINTS(), points)) {
@@ -144,13 +202,7 @@ public class FigureFactory {
             }
         }
 
-        if (amountOfMultiAngleFigures == MAX_AMOUNT_OF_MULTI_ANGLE_FIGURES) {
-            throw new NumberOfFiguresExceededException("Number of figures exceeded");
-        }
-
-        MultiAngleFigure multiAngleFigure = new MultiAngleFigure(points);
-        addMultiAngleFigureToCache(multiAngleFigure);
-        return multiAngleFigure;
+        return null;
     }
 
 }
