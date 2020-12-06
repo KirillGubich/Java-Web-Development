@@ -61,29 +61,7 @@ public class FigureFactory {
             figure = figurePostProcessor.process(figure);
         }
 
-        addFigureToCache(figureName, figure);
         return figure;
-    }
-
-    private static void addFigureToCache(String figureName, Figure figure) throws FigureException {
-
-        switch (figureName) {
-            case "Line":
-                addLineToCache((Line) figure);
-                break;
-            case "Triangle":
-                addTriangleToCache((Triangle) figure);
-                break;
-            case "Square":
-                addSquareToCache((Square) figure);
-                break;
-            case "MultiAngleFigure":
-                addMultiAngleFigureToCache((MultiAngleFigure) figure);
-                break;
-            default:
-                throw new FigureNotExistException("Figure not exist");
-        }
-
     }
 
     private static void addLineToCache(Line line) {
@@ -103,7 +81,9 @@ public class FigureFactory {
             throw new NumberOfFiguresExceededException("Number of figures exceeded");
         }
 
-        return new Line(a, b);
+        Line line = new Line(a, b);
+        addLineToCache(line);
+        return line;
     }
 
     private static void addTriangleToCache(Triangle triangle) {
@@ -124,7 +104,9 @@ public class FigureFactory {
             throw new NumberOfFiguresExceededException("Number of figures exceeded");
         }
 
-        return new Triangle(a, b, c);
+        Triangle triangle = new Triangle(a, b, c);
+        addTriangleToCache(triangle);
+        return triangle;
     }
 
     private static void addSquareToCache(Square square) {
@@ -144,8 +126,9 @@ public class FigureFactory {
         if (amountOfSquares == MAX_AMOUNT_OF_SQUARES) {
             throw new NumberOfFiguresExceededException("Number of figures exceeded");
         }
-
-        return new Square(a, b, c, d);
+        Square square = new Square(a, b, c, d);
+        addSquareToCache(square);
+        return square;
     }
 
     private static void addMultiAngleFigureToCache(MultiAngleFigure multiAngleFigure) {
@@ -165,7 +148,9 @@ public class FigureFactory {
             throw new NumberOfFiguresExceededException("Number of figures exceeded");
         }
 
-        return new MultiAngleFigure(points);
+        MultiAngleFigure multiAngleFigure = new MultiAngleFigure(points);
+        addMultiAngleFigureToCache(multiAngleFigure);
+        return multiAngleFigure;
     }
 
 }
