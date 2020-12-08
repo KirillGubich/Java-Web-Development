@@ -2,8 +2,8 @@ package com.epam.jwd.figure.strategy;
 
 import com.epam.jwd.figure.logic.PointLogic;
 import com.epam.jwd.figure.model.Figure;
-import com.epam.jwd.figure.model.MultiAngleFigure;
-import com.epam.jwd.figure.model.Point;
+import com.epam.jwd.figure.model.impl.MultiAngleFigure;
+import com.epam.jwd.figure.model.impl.Point;
 
 public enum MultiAngleFigurePropertiesStrategy implements FigurePropertiesStrategy {
     INSTANCE;

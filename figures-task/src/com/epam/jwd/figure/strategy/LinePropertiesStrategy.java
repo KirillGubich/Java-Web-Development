@@ -2,7 +2,7 @@ package com.epam.jwd.figure.strategy;
 
 import com.epam.jwd.figure.logic.PointLogic;
 import com.epam.jwd.figure.model.Figure;
-import com.epam.jwd.figure.model.Line;
+import com.epam.jwd.figure.model.impl.Line;
 
 public enum LinePropertiesStrategy implements FigurePropertiesStrategy {
     INSTANCE;

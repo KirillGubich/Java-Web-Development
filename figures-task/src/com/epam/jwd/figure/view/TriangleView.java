@@ -1,7 +1,7 @@
 package com.epam.jwd.figure.view;
 
 import com.epam.jwd.figure.logic.PointLogic;
-import com.epam.jwd.figure.model.Triangle;
+import com.epam.jwd.figure.model.impl.Triangle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

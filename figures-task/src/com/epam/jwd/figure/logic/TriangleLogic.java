@@ -4,10 +4,14 @@ import com.epam.jwd.figure.exception.FigureException;
 import com.epam.jwd.figure.exception.FigureHasSamePointsException;
 import com.epam.jwd.figure.exception.FigureNotExistException;
 import com.epam.jwd.figure.exception.NumberOfFiguresExceededException;
-import com.epam.jwd.figure.model.FigureFactory;
-import com.epam.jwd.figure.model.Point;
-import com.epam.jwd.figure.model.PointFactory;
-import com.epam.jwd.figure.model.Triangle;
+import com.epam.jwd.figure.factory.FigureFactory;
+import com.epam.jwd.figure.model.ApplicationContext;
+import com.epam.jwd.figure.model.impl.SimpleApplicationContext;
+import com.epam.jwd.figure.model.impl.SimpleFigureFactory;
+import com.epam.jwd.figure.model.FigureType;
+import com.epam.jwd.figure.model.impl.Point;
+import com.epam.jwd.figure.model.impl.PointFactory;
+import com.epam.jwd.figure.model.impl.Triangle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -35,7 +39,10 @@ public class TriangleLogic {
             Point b = PointFactory.createPoint(1 + i, i - 5);
             Point c = PointFactory.createPoint(2 + i, i - 2);
             try {
-                triangles[i] = (Triangle) FigureFactory.createFigure("Triangle", a, b, c);
+                final ApplicationContext applicationContext = SimpleApplicationContext.getInstance();
+                final FigureFactory figureFactory = applicationContext.createFigureFactory();
+
+                triangles[i] = (Triangle) figureFactory.createFigure(FigureType.TRIANGLE, a, b, c);
             } catch (FigureNotExistException e) {
                 LOGGER.error("Figure not exist");
                 e.printStackTrace();

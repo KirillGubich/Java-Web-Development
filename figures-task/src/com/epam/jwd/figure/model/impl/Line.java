@@ -1,6 +1,8 @@
-package com.epam.jwd.figure.model;
+package com.epam.jwd.figure.model.impl;
 
 import com.epam.jwd.figure.logic.PointLogic;
+import com.epam.jwd.figure.model.Figure;
+import com.epam.jwd.figure.model.FigureType;
 import com.epam.jwd.figure.strategy.LinePropertiesStrategy;
 
 import java.util.Objects;
@@ -11,7 +13,7 @@ public class Line extends Figure {
     private final Point B;
 
     Line(Point a, Point b) {
-        super(LinePropertiesStrategy.INSTANCE);
+        super(LinePropertiesStrategy.INSTANCE, FigureType.LINE);
         this.A = a;
         this.B = b;
     }

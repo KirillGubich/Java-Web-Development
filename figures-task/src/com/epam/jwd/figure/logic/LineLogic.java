@@ -4,10 +4,14 @@ import com.epam.jwd.figure.exception.FigureException;
 import com.epam.jwd.figure.exception.FigureHasSamePointsException;
 import com.epam.jwd.figure.exception.FigureNotExistException;
 import com.epam.jwd.figure.exception.NumberOfFiguresExceededException;
-import com.epam.jwd.figure.model.FigureFactory;
-import com.epam.jwd.figure.model.Line;
-import com.epam.jwd.figure.model.Point;
-import com.epam.jwd.figure.model.PointFactory;
+import com.epam.jwd.figure.factory.FigureFactory;
+import com.epam.jwd.figure.model.ApplicationContext;
+import com.epam.jwd.figure.model.impl.SimpleApplicationContext;
+import com.epam.jwd.figure.model.impl.SimpleFigureFactory;
+import com.epam.jwd.figure.model.FigureType;
+import com.epam.jwd.figure.model.impl.Line;
+import com.epam.jwd.figure.model.impl.Point;
+import com.epam.jwd.figure.model.impl.PointFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -32,7 +36,10 @@ public class LineLogic {
             Point a = PointFactory.createPoint(3 * i, i - 3);
             Point b = PointFactory.createPoint(2 + i, -2 + i);
             try {
-                lines[i] = (Line) FigureFactory.createFigure("Line", a, b);
+                final ApplicationContext applicationContext = SimpleApplicationContext.getInstance();
+                final FigureFactory figureFactory = applicationContext.createFigureFactory();
+
+                lines[i] = (Line) figureFactory.createFigure(FigureType.LINE, a, b);
             } catch (FigureNotExistException e) {
                 LOGGER.error("Figure not exist");
                 e.printStackTrace();

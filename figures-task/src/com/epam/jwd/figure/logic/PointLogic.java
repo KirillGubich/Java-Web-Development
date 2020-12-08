@@ -1,7 +1,7 @@
 package com.epam.jwd.figure.logic;
 
-import com.epam.jwd.figure.model.Point;
-import com.epam.jwd.figure.model.PointFactory;
+import com.epam.jwd.figure.model.impl.Point;
+import com.epam.jwd.figure.model.impl.PointFactory;
 
 public class PointLogic {
 

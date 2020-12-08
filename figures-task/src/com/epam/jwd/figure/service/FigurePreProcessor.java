@@ -1,10 +1,10 @@
 package com.epam.jwd.figure.service;
 
 import com.epam.jwd.figure.exception.FigureException;
-import com.epam.jwd.figure.model.Point;
+import com.epam.jwd.figure.model.impl.Point;
 
 public interface FigurePreProcessor {
 
-    Point[] process(Point... points) throws FigureException;
+    void preProcess(Point... points) throws FigureException;
 
 }

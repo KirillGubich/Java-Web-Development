@@ -1,6 +1,8 @@
-package com.epam.jwd.figure.model;
+package com.epam.jwd.figure.model.impl;
 
 import com.epam.jwd.figure.logic.PointLogic;
+import com.epam.jwd.figure.model.Figure;
+import com.epam.jwd.figure.model.FigureType;
 import com.epam.jwd.figure.strategy.MultiAngleFigurePropertiesStrategy;
 
 import java.util.Arrays;
@@ -12,7 +14,7 @@ public class MultiAngleFigure extends Figure {
     private final Point[] POINTS;
 
     MultiAngleFigure(Point[] POINTS) {
-        super(MultiAngleFigurePropertiesStrategy.INSTANCE);
+        super(MultiAngleFigurePropertiesStrategy.INSTANCE, FigureType.MULTI_ANGLE_FIGURE);
         AMOUNT_OF_ANGLES = POINTS.length;
         this.POINTS = POINTS;
     }

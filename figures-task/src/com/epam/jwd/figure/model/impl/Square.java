@@ -1,7 +1,9 @@
-package com.epam.jwd.figure.model;
+package com.epam.jwd.figure.model.impl;
 
 import com.epam.jwd.figure.logic.PointLogic;
 import com.epam.jwd.figure.logic.SquareLogic;
+import com.epam.jwd.figure.model.Figure;
+import com.epam.jwd.figure.model.FigureType;
 import com.epam.jwd.figure.strategy.SquarePropertiesStrategy;
 
 import java.util.Objects;
@@ -14,7 +16,7 @@ public class Square extends Figure {
     private final Point D;
 
     Square(Point a, Point b, Point c, Point d) {
-        super(SquarePropertiesStrategy.getInstance());
+        super(SquarePropertiesStrategy.getInstance(), FigureType.SQUARE);
         this.A = a;
         this.B = b;
         this.C = c;

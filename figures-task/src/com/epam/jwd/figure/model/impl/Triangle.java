@@ -1,6 +1,8 @@
-package com.epam.jwd.figure.model;
+package com.epam.jwd.figure.model.impl;
 
 import com.epam.jwd.figure.logic.TriangleLogic;
+import com.epam.jwd.figure.model.Figure;
+import com.epam.jwd.figure.model.FigureType;
 import com.epam.jwd.figure.strategy.TrianglePropertiesStrategy;
 
 import java.util.Objects;
@@ -12,7 +14,7 @@ public class Triangle extends Figure {
     private final Point C;
 
     Triangle(Point a, Point b, Point c) {
-        super(TrianglePropertiesStrategy.getInstance());
+        super(TrianglePropertiesStrategy.getInstance(), FigureType.TRIANGLE);
         this.A = a;
         this.B = b;
         this.C = c;

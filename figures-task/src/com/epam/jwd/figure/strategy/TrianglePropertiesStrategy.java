@@ -2,7 +2,7 @@ package com.epam.jwd.figure.strategy;
 
 import com.epam.jwd.figure.logic.TriangleLogic;
 import com.epam.jwd.figure.model.Figure;
-import com.epam.jwd.figure.model.Triangle;
+import com.epam.jwd.figure.model.impl.Triangle;
 
 public class TrianglePropertiesStrategy implements FigurePropertiesStrategy {
 

@@ -1,7 +1,7 @@
 package com.epam.jwd.figure.view;
 
 import com.epam.jwd.figure.logic.PointLogic;
-import com.epam.jwd.figure.model.Line;
+import com.epam.jwd.figure.model.impl.Line;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

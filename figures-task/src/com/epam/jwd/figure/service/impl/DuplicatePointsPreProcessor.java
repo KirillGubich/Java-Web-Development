@@ -3,30 +3,27 @@ package com.epam.jwd.figure.service.impl;
 import com.epam.jwd.figure.exception.FigureException;
 import com.epam.jwd.figure.exception.FigureHasSamePointsException;
 import com.epam.jwd.figure.logic.PointLogic;
-import com.epam.jwd.figure.model.Point;
+import com.epam.jwd.figure.model.impl.Point;
 import com.epam.jwd.figure.service.FigurePreProcessor;
 
-public class FigureHasSamePointsPreProcessor implements FigurePreProcessor {
+public class DuplicatePointsPreProcessor implements FigurePreProcessor {
 
-    private static FigureHasSamePointsPreProcessor instance;
+    private static DuplicatePointsPreProcessor instance;
 
-    private FigureHasSamePointsPreProcessor() {
+    private DuplicatePointsPreProcessor() {
     }
 
-    public static FigureHasSamePointsPreProcessor getInstance() {
+    public static DuplicatePointsPreProcessor getInstance() {
         if (instance == null) {
-            instance = new FigureHasSamePointsPreProcessor();
+            instance = new DuplicatePointsPreProcessor();
         }
         return instance;
     }
 
     @Override
-    public Point[] process(Point... points) throws FigureException {
-
+    public void preProcess(Point... points) throws FigureException {
         if (PointLogic.hasSamePoints(points)) {
             throw new FigureHasSamePointsException("Figure has same points");
         }
-
-        return points;
     }
 }

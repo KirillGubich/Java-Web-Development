@@ -2,7 +2,7 @@ package com.epam.jwd.figure.strategy;
 
 import com.epam.jwd.figure.logic.PointLogic;
 import com.epam.jwd.figure.model.Figure;
-import com.epam.jwd.figure.model.Square;
+import com.epam.jwd.figure.model.impl.Square;
 
 public class SquarePropertiesStrategy implements FigurePropertiesStrategy {
 

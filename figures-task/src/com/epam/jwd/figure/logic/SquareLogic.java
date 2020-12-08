@@ -4,10 +4,14 @@ import com.epam.jwd.figure.exception.FigureException;
 import com.epam.jwd.figure.exception.FigureHasSamePointsException;
 import com.epam.jwd.figure.exception.FigureNotExistException;
 import com.epam.jwd.figure.exception.NumberOfFiguresExceededException;
-import com.epam.jwd.figure.model.FigureFactory;
-import com.epam.jwd.figure.model.Point;
-import com.epam.jwd.figure.model.PointFactory;
-import com.epam.jwd.figure.model.Square;
+import com.epam.jwd.figure.factory.FigureFactory;
+import com.epam.jwd.figure.model.ApplicationContext;
+import com.epam.jwd.figure.model.impl.SimpleApplicationContext;
+import com.epam.jwd.figure.model.impl.SimpleFigureFactory;
+import com.epam.jwd.figure.model.FigureType;
+import com.epam.jwd.figure.model.impl.Point;
+import com.epam.jwd.figure.model.impl.PointFactory;
+import com.epam.jwd.figure.model.impl.Square;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -36,7 +40,10 @@ public class SquareLogic {
             Point d = PointFactory.createPoint(0, i + 2);
 
             try {
-                squares[i] = (Square) FigureFactory.createFigure("Square", a, b, c, d);
+                final ApplicationContext applicationContext = SimpleApplicationContext.getInstance();
+                final FigureFactory figureFactory = applicationContext.createFigureFactory();
+
+                squares[i] = (Square) figureFactory.createFigure(FigureType.SQUARE, a, b, c, d);
             } catch (FigureNotExistException e) {
                 LOGGER.error("Figure not exist");
                 e.printStackTrace();

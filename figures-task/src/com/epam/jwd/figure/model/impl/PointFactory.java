@@ -1,4 +1,4 @@
-package com.epam.jwd.figure.model;
+package com.epam.jwd.figure.model.impl;
 
 public class PointFactory {
 

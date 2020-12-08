@@ -22,10 +22,15 @@ public class FigureExistencePostProcessor implements FigurePostProcessor {
     @Override
     public Figure process(Figure figure) throws FigureException {
 
-        if (!figure.isExist()) {
+        if (!exists(figure)) {
             throw new FigureNotExistException("Figure not exist");
         }
 
         return figure;
+    }
+
+    private boolean exists(Figure figure) {
+
+        return figure.isExist();
     }
 }
