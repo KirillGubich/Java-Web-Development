@@ -6,17 +6,21 @@ import com.epam.jwd.figure.model.Figure;
 import com.epam.jwd.figure.model.FigureType;
 import com.epam.jwd.figure.model.impl.Point;
 import com.epam.jwd.figure.service.FigurePostProcessor;
-import com.epam.jwd.figure.service.impl.FigureExistencePostProcessor;
-import com.epam.jwd.figure.service.impl.FigureStoragePostProcessor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FigurePostProcessingDecorator implements FigureFactory {
 
     private final FigureFactory figureFactory;
-    private static final FigurePostProcessor[] FIGURE_POST_PROCESSORS = {FigureExistencePostProcessor.getInstance(),
-            FigureStoragePostProcessor.getInstance()};
+    private static final List<FigurePostProcessor> FIGURE_POST_PROCESSORS = new ArrayList<>();
 
     public FigurePostProcessingDecorator(FigureFactory figureFactory) {
         this.figureFactory = figureFactory;
+    }
+
+    public void addPostProcessor(FigurePostProcessor figurePostProcessor) {
+        FIGURE_POST_PROCESSORS.add(figurePostProcessor);
     }
 
     @Override

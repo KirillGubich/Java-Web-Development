@@ -5,11 +5,13 @@ import com.epam.jwd.figure.model.impl.Triangle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.List;
+
 public class TriangleView {
 
     private static final Logger LOGGER = LogManager.getLogger(TriangleView.class);
 
-    public static void outputTriangles(Triangle[] triangles) {
+    public static void outputTriangles(List<Triangle> triangles) {
 
         for (Triangle triangle : triangles) {
             if (triangle.isExist()) {

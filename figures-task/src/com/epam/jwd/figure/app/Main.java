@@ -12,11 +12,10 @@ import com.epam.jwd.figure.view.TriangleView;
 public class Main {
 
     public static void main(String[] args) {
-
-        PointView.outputPoints(PointLogic.createArray(4));
-        LineView.outputLines(LineLogic.getInstance().createArray(2));
-        TriangleView.outputTriangles(TriangleLogic.getInstance().createArray(2));
-        SquareView.outputSquares(SquareLogic.getInstance().createArray(1));
+        PointView.outputPoints(PointLogic.createList(4));
+        LineView.outputLines(LineLogic.getInstance().createList(2));
+        TriangleView.outputTriangles(TriangleLogic.getInstance().createList(2));
+        SquareView.outputSquares(SquareLogic.getInstance().createList(1));
     }
 
 }

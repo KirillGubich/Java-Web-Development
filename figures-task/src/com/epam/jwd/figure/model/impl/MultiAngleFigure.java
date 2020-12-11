@@ -52,7 +52,6 @@ public class MultiAngleFigure extends Figure {
 
     @Override
     public boolean isExist() {
-
         return !(PointLogic.hasSamePoints(this.getPOINTS()));
     }
 }
