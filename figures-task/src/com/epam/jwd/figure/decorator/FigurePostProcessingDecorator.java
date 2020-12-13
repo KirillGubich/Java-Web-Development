@@ -25,7 +25,6 @@ public class FigurePostProcessingDecorator implements FigureFactory {
 
     @Override
     public Figure createFigure(FigureType type, Point... figureConstituents) throws FigureException {
-
         Figure figure;
         figure = figureFactory.createFigure(type, figureConstituents);
         for (FigurePostProcessor figurePostProcessor : FIGURE_POST_PROCESSORS) {

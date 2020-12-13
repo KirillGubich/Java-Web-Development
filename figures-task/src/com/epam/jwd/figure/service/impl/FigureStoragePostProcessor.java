@@ -3,6 +3,7 @@ package com.epam.jwd.figure.service.impl;
 import com.epam.jwd.figure.exception.FigureException;
 import com.epam.jwd.figure.model.Figure;
 import com.epam.jwd.figure.service.FigurePostProcessor;
+import com.epam.jwd.figure.service.FigureStorageService;
 
 public class FigureStoragePostProcessor implements FigurePostProcessor {
 
@@ -23,10 +24,11 @@ public class FigureStoragePostProcessor implements FigurePostProcessor {
     public Figure process(Figure figure) throws FigureException {
 
         Figure figureFromStorage;
-        figureFromStorage = FigureStorageService.getInstance().fetchFigureFromStorage(figure);
+        FigureStorageService figureStorageService = FigureCacheStorageService.getInstance();
+        figureFromStorage = figureStorageService.fetchFigureFromStorage(figure);
 
         if (figureFromStorage == null) {
-            FigureStorageService.getInstance().addFigureToStorage(figure);
+            FigureCacheStorageService.getInstance().addFigureToStorage(figure);
         } else {
             figure = figureFromStorage;
         }

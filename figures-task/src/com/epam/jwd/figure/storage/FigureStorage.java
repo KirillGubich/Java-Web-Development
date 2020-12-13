@@ -4,6 +4,7 @@ import com.epam.jwd.figure.model.impl.Line;
 import com.epam.jwd.figure.model.impl.MultiAngleFigure;
 import com.epam.jwd.figure.model.impl.Square;
 import com.epam.jwd.figure.model.impl.Triangle;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,56 +32,74 @@ public class FigureStorage {
         ALL_CREATED_LINES.add(line);
     }
 
-    public Line fetchLineFromStorage(Line line) {
-        for (Line storageLine : ALL_CREATED_LINES) {
-            if (storageLine.equals(line)) {
-                return storageLine;
-            }
-        }
+    public void removeLineFromStorage(Line line) {
+        ALL_CREATED_LINES.remove(line);
+    }
 
-        return null;
+    public Line fetchLineFromStorage(Line line) {
+        return ALL_CREATED_LINES.stream().
+                filter(lineFromStorage -> lineFromStorage.equals(line)).findAny().orElse(null);
+    }
+
+    public Line fetchLineFromStorageByID(long id) {
+        return ALL_CREATED_LINES.stream().
+                filter(lineFromStorage -> lineFromStorage.getID() == id).findAny().orElse(null);
     }
 
     public void addTriangleToStorage(Triangle triangle){
         ALL_CREATED_TRIANGLES.add(triangle);
     }
 
-    public Triangle fetchTriangleFromStorage(Triangle triangle) {
-        for (Triangle storageTriangle : ALL_CREATED_TRIANGLES) {
-            if (storageTriangle.equals(triangle)) {
-                return storageTriangle;
-            }
-        }
+    public void removeTriangleFromStorage(Triangle triangle){
+        ALL_CREATED_TRIANGLES.remove(triangle);
+    }
 
-        return null;
+    public Triangle fetchTriangleFromStorage(Triangle triangle) {
+        return ALL_CREATED_TRIANGLES.stream().
+                filter(triangleFromStorage -> triangleFromStorage.equals(triangle)).findAny().orElse(null);
+    }
+
+    public Triangle fetchTriangleFromStorageByID(long id) {
+        return ALL_CREATED_TRIANGLES.stream().
+                filter(triangleFromStorage -> triangleFromStorage.getID() == id).findAny().orElse(null);
     }
 
     public void addSquareToStorage(Square square) {
         ALL_CREATED_SQUARES.add(square);
     }
 
-    public Square fetchSquareFromStorage(Square square) {
-        for (Square storageSquare : ALL_CREATED_SQUARES) {
-            if (storageSquare.equals(square)) {
-                return storageSquare;
-            }
-        }
+    public void removeSquareFromStorage(Square square) {
+        ALL_CREATED_SQUARES.remove(square);
+    }
 
-        return null;
+    public Square fetchSquareFromStorage(Square square) {
+        return ALL_CREATED_SQUARES.stream().
+                filter(squareFromStorage -> squareFromStorage.equals(square)).findAny().orElse(null);
+    }
+
+    public Square fetchSquareFromStorageByID(long id) {
+        return ALL_CREATED_SQUARES.stream().
+                filter(squareFromStorage -> squareFromStorage.getID() == id).findAny().orElse(null);
     }
 
     public void addMultiAngleFigureToStorage(MultiAngleFigure multiAngleFigure) {
         ALL_CREATED_MULTI_ANGLE_FIGURES.add(multiAngleFigure);
     }
 
-    public MultiAngleFigure fetchMultiAngleFigureFromStorage(MultiAngleFigure multiAngleFigure) {
-        for (MultiAngleFigure storageMultiAngleFigure : ALL_CREATED_MULTI_ANGLE_FIGURES) {
-            if (storageMultiAngleFigure.equals(multiAngleFigure)) {
-                return storageMultiAngleFigure;
-            }
-        }
+    public void removeMultiAngleFigureFromStorage(MultiAngleFigure multiAngleFigure) {
+        ALL_CREATED_MULTI_ANGLE_FIGURES.remove(multiAngleFigure);
+    }
 
-        return null;
+    public MultiAngleFigure fetchMultiAngleFigureFromStorage(MultiAngleFigure multiAngleFigure) {
+        return ALL_CREATED_MULTI_ANGLE_FIGURES.stream().
+                filter(multiAngleFigureFromStorage -> multiAngleFigureFromStorage.equals(multiAngleFigure)).
+                findAny().orElse(null);
+    }
+
+    public MultiAngleFigure fetchMultiAngleFigureFromStorageByID(long id) {
+        return ALL_CREATED_MULTI_ANGLE_FIGURES.stream().
+                filter(multiAngleFigureFromStorage -> multiAngleFigureFromStorage.getID() == id).
+                findAny().orElse(null);
     }
 
 }
