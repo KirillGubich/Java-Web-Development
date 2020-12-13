@@ -46,11 +46,11 @@ public class FigureStorage {
                 filter(lineFromStorage -> lineFromStorage.getID() == id).findAny().orElse(null);
     }
 
-    public void addTriangleToStorage(Triangle triangle){
+    public void addTriangleToStorage(Triangle triangle) {
         ALL_CREATED_TRIANGLES.add(triangle);
     }
 
-    public void removeTriangleFromStorage(Triangle triangle){
+    public void removeTriangleFromStorage(Triangle triangle) {
         ALL_CREATED_TRIANGLES.remove(triangle);
     }
 

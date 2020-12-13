@@ -11,11 +11,16 @@ import java.util.Map;
 public interface FigureCrud {
 
     Figure createFigure(FigureType type, Point... points) throws FigureException;
-    List<Figure> multiCreateFigure(Map<FigureType, List<Point[]>> figureCreateInfo) throws FigureException;
-    void deleteFigure(Figure figure) throws FigureException;
-    Figure findFigure(Figure figure) throws FigureException;
-    void updateFigure(Figure oldFigure, Figure newFigure) throws FigureException;
-    Figure findFigureByID(long id) throws FigureException;
-    Figure findFigureByCriterion(Figure figure);
 
+    List<Figure> multiCreateFigure(Map<FigureType, List<Point[]>> figureCreateInfo) throws FigureException;
+
+    void deleteFigure(Figure figure) throws FigureException;
+
+    Figure findFigure(Figure figure) throws FigureException;
+
+    void updateFigure(Figure oldFigure, Figure newFigure) throws FigureException;
+
+    Figure findFigureByID(long id) throws FigureException;
+
+    Figure findFigureByCriterion(Figure figure);
 }

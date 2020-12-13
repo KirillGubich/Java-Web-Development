@@ -65,7 +65,7 @@ public class FigureCrudImpl implements FigureCrud {
         Set<FigureType> figureTypes = EnumSet.allOf(FigureType.class);
         Iterator<FigureType> iterator = figureTypes.iterator();
 
-        while(iterator.hasNext() && figure == null) {
+        while (iterator.hasNext() && figure == null) {
             figure = FIGURE_STORAGE_SERVICE.fetchFigureByIDFromStorage(iterator.next(), id);
         }
 
