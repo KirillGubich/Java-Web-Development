@@ -1,5 +1,6 @@
 package com.epam.jwd.figure.service.impl;
 
+import com.epam.jwd.figure.builder.FigureCriteria;
 import com.epam.jwd.figure.exception.FigureException;
 import com.epam.jwd.figure.factory.FigureFactory;
 import com.epam.jwd.figure.model.ApplicationContext;
@@ -73,7 +74,8 @@ public class FigureCrudImpl implements FigureCrud {
     }
 
     @Override
-    public Figure findFigureByCriterion(Figure figure) {
+    public List<Figure> findFiguresByCriteria(FigureCriteria figureCriteria) {
+        //TODO search figure by criteria
         return null;
     }
 }

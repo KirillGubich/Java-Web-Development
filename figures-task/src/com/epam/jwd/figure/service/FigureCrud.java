@@ -1,5 +1,6 @@
 package com.epam.jwd.figure.service;
 
+import com.epam.jwd.figure.builder.FigureCriteria;
 import com.epam.jwd.figure.exception.FigureException;
 import com.epam.jwd.figure.model.Figure;
 import com.epam.jwd.figure.model.FigureType;
@@ -22,5 +23,5 @@ public interface FigureCrud {
 
     Figure findFigureByID(long id) throws FigureException;
 
-    Figure findFigureByCriterion(Figure figure);
+    List<Figure> findFiguresByCriteria(FigureCriteria figureCriteria);
 }
