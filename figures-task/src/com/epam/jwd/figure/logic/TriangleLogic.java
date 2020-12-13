@@ -40,8 +40,8 @@ public class TriangleLogic {
             Point b = PointFactory.createPoint(1 + i, i - 5);
             Point c = PointFactory.createPoint(2 + i, i - 2);
             try {
-                final ApplicationContext applicationContext = SimpleApplicationContext.getInstance();
-                final FigureFactory figureFactory = applicationContext.createFigureFactory();
+                ApplicationContext applicationContext = SimpleApplicationContext.getInstance();
+                FigureFactory figureFactory = applicationContext.createFigureFactory();
 
                 triangles.add((Triangle) figureFactory.createFigure(FigureType.TRIANGLE, a, b, c));
             } catch (FigureNotExistException e) {

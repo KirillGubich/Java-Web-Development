@@ -37,8 +37,8 @@ public class LineLogic {
             Point a = PointFactory.createPoint(3 * i, i - 3);
             Point b = PointFactory.createPoint(2 + i, -2 + i);
             try {
-                final ApplicationContext applicationContext = SimpleApplicationContext.getInstance();
-                final FigureFactory figureFactory = applicationContext.createFigureFactory();
+                ApplicationContext applicationContext = SimpleApplicationContext.getInstance();
+                FigureFactory figureFactory = applicationContext.createFigureFactory();
 
                 lines.add((Line) figureFactory.createFigure(FigureType.LINE, a, b));
             } catch (FigureNotExistException e) {

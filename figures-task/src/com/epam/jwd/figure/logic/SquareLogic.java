@@ -41,8 +41,8 @@ public class SquareLogic {
             Point d = PointFactory.createPoint(0, i + 2);
 
             try {
-                final ApplicationContext applicationContext = SimpleApplicationContext.getInstance();
-                final FigureFactory figureFactory = applicationContext.createFigureFactory();
+                ApplicationContext applicationContext = SimpleApplicationContext.getInstance();
+                FigureFactory figureFactory = applicationContext.createFigureFactory();
 
                 squares.add((Square) figureFactory.createFigure(FigureType.SQUARE, a, b, c, d));
             } catch (FigureNotExistException e) {
