@@ -10,11 +10,19 @@ import com.epam.jwd.figure.model.impl.Square;
 import com.epam.jwd.figure.model.impl.Triangle;
 import com.epam.jwd.figure.service.FigureStorageService;
 import com.epam.jwd.figure.storage.FigureStorage;
+import com.epam.jwd.figure.storage.impl.LineStorage;
+import com.epam.jwd.figure.storage.impl.MultiAngleFigureStorage;
+import com.epam.jwd.figure.storage.impl.SquareStorage;
+import com.epam.jwd.figure.storage.impl.TriangleStorage;
 
 public class FigureCacheStorageService implements FigureStorageService {
 
     private static FigureCacheStorageService instance;
-    private static final FigureStorage FIGURE_STORAGE = FigureStorage.getInstance();
+
+    private static final FigureStorage<Line> LINE_STORAGE = LineStorage.getInstance();
+    private static final FigureStorage<Triangle> TRIANGLE_STORAGE = TriangleStorage.getInstance();
+    private static final FigureStorage<Square> SQUARE_STORAGE = SquareStorage.getInstance();
+    private static final FigureStorage<MultiAngleFigure> MULTI_ANGLE_FIGURE_STORAGE = MultiAngleFigureStorage.getInstance();
 
     private FigureCacheStorageService() {
     }
@@ -31,16 +39,16 @@ public class FigureCacheStorageService implements FigureStorageService {
     public Figure fetchFigureFromStorage(Figure figure) throws FigureException {
         switch (figure.getFIGURE_TYPE()) {
             case LINE:
-                figure = FIGURE_STORAGE.fetchLineFromStorage((Line) figure);
+                figure = LINE_STORAGE.fetchFromStorage((Line) figure);
                 break;
             case TRIANGLE:
-                figure = FIGURE_STORAGE.fetchTriangleFromStorage((Triangle) figure);
+                figure = TRIANGLE_STORAGE.fetchFromStorage((Triangle) figure);
                 break;
             case SQUARE:
-                figure = FIGURE_STORAGE.fetchSquareFromStorage((Square) figure);
+                figure = SQUARE_STORAGE.fetchFromStorage((Square) figure);
                 break;
             case MULTI_ANGLE_FIGURE:
-                figure = FIGURE_STORAGE.fetchMultiAngleFigureFromStorage((MultiAngleFigure) figure);
+                figure = MULTI_ANGLE_FIGURE_STORAGE.fetchFromStorage((MultiAngleFigure) figure);
                 break;
             default:
                 throw new FigureNotExistException("Figure not exist");
@@ -53,16 +61,16 @@ public class FigureCacheStorageService implements FigureStorageService {
     public void addFigureToStorage(Figure figure) throws FigureException {
         switch (figure.getFIGURE_TYPE()) {
             case LINE:
-                FIGURE_STORAGE.addLineToStorage((Line) figure);
+                LINE_STORAGE.addToStorage((Line) figure);
                 break;
             case TRIANGLE:
-                FIGURE_STORAGE.addTriangleToStorage((Triangle) figure);
+                TRIANGLE_STORAGE.addToStorage((Triangle) figure);
                 break;
             case SQUARE:
-                FIGURE_STORAGE.addSquareToStorage((Square) figure);
+                SQUARE_STORAGE.addToStorage((Square) figure);
                 break;
             case MULTI_ANGLE_FIGURE:
-                FIGURE_STORAGE.addMultiAngleFigureToStorage((MultiAngleFigure) figure);
+                MULTI_ANGLE_FIGURE_STORAGE.addToStorage((MultiAngleFigure) figure);
                 break;
             default:
                 throw new FigureNotExistException("Figure not exist");
@@ -73,16 +81,16 @@ public class FigureCacheStorageService implements FigureStorageService {
     public void removeFigureFromStorage(Figure figure) throws FigureException {
         switch (figure.getFIGURE_TYPE()) {
             case LINE:
-                FIGURE_STORAGE.removeLineFromStorage((Line) figure);
+                LINE_STORAGE.removeFromStorage((Line) figure);
                 break;
             case TRIANGLE:
-                FIGURE_STORAGE.removeTriangleFromStorage((Triangle) figure);
+                TRIANGLE_STORAGE.removeFromStorage((Triangle) figure);
                 break;
             case SQUARE:
-                FIGURE_STORAGE.removeSquareFromStorage((Square) figure);
+                SQUARE_STORAGE.removeFromStorage((Square) figure);
                 break;
             case MULTI_ANGLE_FIGURE:
-                FIGURE_STORAGE.removeMultiAngleFigureFromStorage((MultiAngleFigure) figure);
+                MULTI_ANGLE_FIGURE_STORAGE.removeFromStorage((MultiAngleFigure) figure);
                 break;
             default:
                 throw new FigureNotExistException("Figure not exist");
@@ -95,16 +103,16 @@ public class FigureCacheStorageService implements FigureStorageService {
 
         switch (type) {
             case LINE:
-                figure = FIGURE_STORAGE.fetchLineFromStorageByID(id);
+                figure = LINE_STORAGE.fetchFromStorageByID(id);
                 break;
             case TRIANGLE:
-                figure = FIGURE_STORAGE.fetchTriangleFromStorageByID(id);
+                figure = TRIANGLE_STORAGE.fetchFromStorageByID(id);
                 break;
             case SQUARE:
-                figure = FIGURE_STORAGE.fetchSquareFromStorageByID(id);
+                figure = SQUARE_STORAGE.fetchFromStorageByID(id);
                 break;
             case MULTI_ANGLE_FIGURE:
-                figure = FIGURE_STORAGE.fetchMultiAngleFigureFromStorageByID(id);
+                figure = MULTI_ANGLE_FIGURE_STORAGE.fetchFromStorageByID(id);
                 break;
             default:
                 throw new FigureNotExistException("Figure not exist");
