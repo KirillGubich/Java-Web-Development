@@ -16,7 +16,6 @@ public enum LinePropertiesStrategy implements FigurePropertiesStrategy {
     public double calculatePerimeter(Figure figure) {
 
         Line line = (Line) figure;
-
         return PointLogic.getDistance(line.getA(), line.getB());
     }
 }

@@ -4,7 +4,7 @@ import com.epam.jwd.figure.logic.PointLogic;
 import com.epam.jwd.figure.model.Figure;
 import com.epam.jwd.figure.model.impl.Square;
 
-public class SquarePropertiesStrategy implements FigurePropertiesStrategy {
+public final class SquarePropertiesStrategy implements FigurePropertiesStrategy {
 
     private static SquarePropertiesStrategy instance;
 
