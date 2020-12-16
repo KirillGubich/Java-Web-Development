@@ -1,15 +1,32 @@
 package com.epam.jwd.figure.storage.impl;
 
+import com.epam.jwd.figure.builder.FigureCriteria;
+import com.epam.jwd.figure.model.Figure;
 import com.epam.jwd.figure.model.impl.Square;
 import com.epam.jwd.figure.storage.FigureStorage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SquareStorage implements FigureStorage<Square> {
 
     private static SquareStorage instance;
     private static final List<Square> ALL_CREATED_SQUARES = new ArrayList<>();
+
+    @Override
+    public void saveToStorage(List<Square> figures) {
+        ALL_CREATED_SQUARES.addAll(figures);
+    }
+
+    @Override
+    public List<Figure> fetchFromStorageByCriteria(FigureCriteria figureCriteria) {
+        return ALL_CREATED_SQUARES.stream()
+                .filter(square -> square.executeStrategy()
+                        .calculatePerimeter(square) == figureCriteria.getPerimeter()
+                        && square.executeStrategy().calculateArea(square) == figureCriteria.getArea())
+                .collect(Collectors.toList());
+    }
 
     private SquareStorage() {
     }

@@ -5,7 +5,8 @@ import com.epam.jwd.figure.model.FigureType;
 public class FigureCriteria {
 
     private FigureType figureType;
-    private int amountOfAngles;
+    private double perimeter;
+    private double area;
 
     public FigureCriteria() {
     }
@@ -14,16 +15,23 @@ public class FigureCriteria {
         return figureType;
     }
 
-    public int getAmountOfAngles() {
-        return amountOfAngles;
-    }
-
     public void setFigureType(FigureType figureType) {
         this.figureType = figureType;
     }
 
-    public void setAmountOfAngles(int amountOfAngles) {
-        this.amountOfAngles = amountOfAngles;
+    public double getPerimeter() {
+        return perimeter;
     }
 
+    public void setPerimeter(double perimeter) {
+        this.perimeter = perimeter;
+    }
+
+    public double getArea() {
+        return area;
+    }
+
+    public void setArea(double area) {
+        this.area = area;
+    }
 }

@@ -20,9 +20,20 @@ import java.util.Set;
 
 public class FigureCrudImpl implements FigureCrud {
 
+    private static FigureCrudImpl instance;
     private static final ApplicationContext APPLICATION_CONTEXT = SimpleApplicationContext.getInstance();
     private static final FigureFactory FIGURE_FACTORY = APPLICATION_CONTEXT.createFigureFactory();
     private static final FigureStorageService FIGURE_STORAGE_SERVICE = FigureCacheStorageService.getInstance();
+
+    private FigureCrudImpl() {
+    }
+
+    public static FigureCrudImpl getInstance() {
+        if (instance == null) {
+            instance = new FigureCrudImpl();
+        }
+        return instance;
+    }
 
     @Override
     public Figure createFigure(FigureType type, Point... points) throws FigureException {
@@ -74,8 +85,7 @@ public class FigureCrudImpl implements FigureCrud {
     }
 
     @Override
-    public List<Figure> findFiguresByCriteria(FigureCriteria figureCriteria) {
-        //TODO search figure by criteria
-        return null;
+    public List<Figure> findFiguresByCriteria(FigureCriteria figureCriteria) throws FigureException {
+        return FIGURE_STORAGE_SERVICE.fetchFiguresByCriteriaFromStorage(figureCriteria);
     }
 }

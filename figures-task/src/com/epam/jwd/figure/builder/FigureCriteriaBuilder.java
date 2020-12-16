@@ -25,6 +25,16 @@ public class FigureCriteriaBuilder implements Builder {
     }
 
     @Override
+    public void setArea(double area) {
+        figureCriteria.setArea(area);
+    }
+
+    @Override
+    public void setPerimeter(double perimeter) {
+        figureCriteria.setPerimeter(perimeter);
+    }
+
+    @Override
     public void reset() {
         figureCriteria = new FigureCriteria();
     }
@@ -32,10 +42,5 @@ public class FigureCriteriaBuilder implements Builder {
     @Override
     public void setFigureType(FigureType figureType) {
         figureCriteria.setFigureType(figureType);
-    }
-
-    @Override
-    public void setAmountOfAngles(int amountOfAngles) {
-        figureCriteria.setAmountOfAngles(amountOfAngles);
     }
 }

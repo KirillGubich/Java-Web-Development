@@ -14,17 +14,32 @@ public class FigureCriteriaDirector {
         this.builder = builder;
     }
 
-    public void constructPentagon() {
+    public void constructLineCriteria(double perimeter) {
         builder.reset();
-        builder.setFigureType(FigureType.MULTI_ANGLE_FIGURE);
-        builder.setAmountOfAngles(5);
+        builder.setFigureType(FigureType.LINE);
+        builder.setPerimeter(perimeter);
+        builder.setArea(0);
     }
 
-    public void constructHexagon() {
+    public void constructTriangleCriteria(double perimeter, double area) {
         builder.reset();
-        builder.setFigureType(FigureType.MULTI_ANGLE_FIGURE);
-        builder.setAmountOfAngles(6);
+        builder.setFigureType(FigureType.TRIANGLE);
+        builder.setPerimeter(perimeter);
+        builder.setArea(area);
     }
 
+    public void constructSquareCriteria(double perimeter, double area) {
+        builder.reset();
+        builder.setFigureType(FigureType.SQUARE);
+        builder.setPerimeter(perimeter);
+        builder.setArea(area);
+    }
+
+    public void constructMultiAngleFigureCriteria(double perimeter, double area) {
+        builder.reset();
+        builder.setFigureType(FigureType.MULTI_ANGLE_FIGURE);
+        builder.setPerimeter(perimeter);
+        builder.setArea(area);
+    }
 
 }

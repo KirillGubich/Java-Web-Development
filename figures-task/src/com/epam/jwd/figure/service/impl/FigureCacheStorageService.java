@@ -1,5 +1,6 @@
 package com.epam.jwd.figure.service.impl;
 
+import com.epam.jwd.figure.builder.FigureCriteria;
 import com.epam.jwd.figure.exception.FigureException;
 import com.epam.jwd.figure.exception.FigureNotExistException;
 import com.epam.jwd.figure.model.Figure;
@@ -14,6 +15,8 @@ import com.epam.jwd.figure.storage.impl.LineStorage;
 import com.epam.jwd.figure.storage.impl.MultiAngleFigureStorage;
 import com.epam.jwd.figure.storage.impl.SquareStorage;
 import com.epam.jwd.figure.storage.impl.TriangleStorage;
+
+import java.util.List;
 
 public class FigureCacheStorageService implements FigureStorageService {
 
@@ -119,5 +122,27 @@ public class FigureCacheStorageService implements FigureStorageService {
         }
 
         return figure;
+    }
+
+    @Override
+    public List<Figure> fetchFiguresByCriteriaFromStorage(FigureCriteria figureCriteria) throws FigureException {
+        List<Figure> figures;
+        switch (figureCriteria.getFigureType()) {
+            case LINE:
+                figures = LINE_STORAGE.fetchFromStorageByCriteria(figureCriteria);
+                break;
+            case TRIANGLE:
+                figures = TRIANGLE_STORAGE.fetchFromStorageByCriteria(figureCriteria);
+                break;
+            case SQUARE:
+                figures = SQUARE_STORAGE.fetchFromStorageByCriteria(figureCriteria);
+                break;
+            case MULTI_ANGLE_FIGURE:
+                figures = MULTI_ANGLE_FIGURE_STORAGE.fetchFromStorageByCriteria(figureCriteria);
+                break;
+            default:
+                throw new FigureNotExistException("Figure not exist");
+        }
+        return figures;
     }
 }

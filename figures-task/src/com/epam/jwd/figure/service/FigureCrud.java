@@ -23,5 +23,5 @@ public interface FigureCrud {
 
     Figure findFigureByID(long id) throws FigureException;
 
-    List<Figure> findFiguresByCriteria(FigureCriteria figureCriteria);
+    List<Figure> findFiguresByCriteria(FigureCriteria figureCriteria) throws FigureException;
 }

@@ -1,12 +1,28 @@
 package com.epam.jwd.figure.storage.impl;
 
+import com.epam.jwd.figure.builder.FigureCriteria;
+import com.epam.jwd.figure.model.Figure;
 import com.epam.jwd.figure.model.impl.Line;
 import com.epam.jwd.figure.storage.FigureStorage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class LineStorage implements FigureStorage<Line> {
+
+    @Override
+    public void saveToStorage(List<Line> figures) {
+        ALL_CREATED_LINES.addAll(figures);
+    }
+
+    @Override
+    public List<Figure> fetchFromStorageByCriteria(FigureCriteria figureCriteria) {
+        return ALL_CREATED_LINES.stream()
+                .filter(line -> line.executeStrategy()
+                        .calculatePerimeter(line) == figureCriteria.getPerimeter())
+                .collect(Collectors.toList());
+    }
 
     private static LineStorage instance;
     private static final List<Line> ALL_CREATED_LINES = new ArrayList<>();

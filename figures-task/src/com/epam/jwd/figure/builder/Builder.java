@@ -8,5 +8,7 @@ public interface Builder {
 
     void setFigureType(FigureType figureType);
 
-    void setAmountOfAngles(int amountOfAngles);
+    void setArea(double area);
+
+    void setPerimeter(double perimeter);
 }

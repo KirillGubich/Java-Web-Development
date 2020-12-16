@@ -1,10 +1,13 @@
 package com.epam.jwd.figure.storage.impl;
 
+import com.epam.jwd.figure.builder.FigureCriteria;
+import com.epam.jwd.figure.model.Figure;
 import com.epam.jwd.figure.model.impl.MultiAngleFigure;
 import com.epam.jwd.figure.storage.FigureStorage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MultiAngleFigureStorage implements FigureStorage<MultiAngleFigure> {
 
@@ -46,5 +49,20 @@ public class MultiAngleFigureStorage implements FigureStorage<MultiAngleFigure> 
                 .filter(multiAngleFigureFromStorage -> multiAngleFigureFromStorage.getID() == id)
                 .findAny()
                 .orElse(null);
+    }
+
+    @Override
+    public void saveToStorage(List<MultiAngleFigure> figures) {
+        ALL_CREATED_MULTI_ANGLE_FIGURES.addAll(figures);
+    }
+
+    @Override
+    public List<Figure> fetchFromStorageByCriteria(FigureCriteria figureCriteria) {
+        return ALL_CREATED_MULTI_ANGLE_FIGURES.stream()
+                .filter(multiAngleFigure -> multiAngleFigure.executeStrategy()
+                        .calculatePerimeter(multiAngleFigure) == figureCriteria.getPerimeter()
+                        && multiAngleFigure.executeStrategy().
+                        calculateArea(multiAngleFigure) == figureCriteria.getArea())
+                .collect(Collectors.toList());
     }
 }
