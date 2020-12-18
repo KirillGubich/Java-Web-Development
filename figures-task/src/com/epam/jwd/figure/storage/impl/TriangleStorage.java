@@ -1,13 +1,10 @@
 package com.epam.jwd.figure.storage.impl;
 
-import com.epam.jwd.figure.builder.FigureCriteria;
-import com.epam.jwd.figure.model.Figure;
 import com.epam.jwd.figure.model.impl.Triangle;
 import com.epam.jwd.figure.storage.FigureStorage;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class TriangleStorage implements FigureStorage<Triangle> {
 
@@ -23,13 +20,8 @@ public class TriangleStorage implements FigureStorage<Triangle> {
     }
 
     @Override
-    public List<Figure> fetchFromStorageByCriteria(FigureCriteria figureCriteria) {
-        return ALL_CREATED_TRIANGLES.stream()
-                .filter(triangle -> triangle.executeStrategy()
-                        .calculatePerimeter(triangle) == figureCriteria.getPerimeter()
-                        && triangle.executeStrategy()
-                        .calculateArea(triangle) == figureCriteria.getArea())
-                .collect(Collectors.toList());
+    public List<Triangle> getStorage() {
+        return ALL_CREATED_TRIANGLES;
     }
 
     public static TriangleStorage getInstance() {
@@ -47,21 +39,5 @@ public class TriangleStorage implements FigureStorage<Triangle> {
     @Override
     public void removeFromStorage(Triangle figure) {
         ALL_CREATED_TRIANGLES.remove(figure);
-    }
-
-    @Override
-    public Triangle fetchFromStorage(Triangle figure) {
-        return ALL_CREATED_TRIANGLES.stream()
-                .filter(triangleFromStorage -> triangleFromStorage.equals(figure))
-                .findAny()
-                .orElse(null);
-    }
-
-    @Override
-    public Triangle fetchFromStorageByID(long id) {
-        return ALL_CREATED_TRIANGLES.stream()
-                .filter(triangleFromStorage -> triangleFromStorage.getID() == id)
-                .findAny()
-                .orElse(null);
     }
 }

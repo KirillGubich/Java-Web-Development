@@ -17,5 +17,4 @@ public class Main {
         TriangleView.outputTriangles(TriangleLogic.getInstance().createList(2));
         SquareView.outputSquares(SquareLogic.getInstance().createList(1));
     }
-
 }

@@ -1,6 +1,5 @@
 package com.epam.jwd.figure.storage;
 
-import com.epam.jwd.figure.builder.FigureCriteria;
 import com.epam.jwd.figure.model.Figure;
 
 import java.util.List;
@@ -13,9 +12,5 @@ public interface FigureStorage<T extends Figure> {
 
     void removeFromStorage(T figure);
 
-    T fetchFromStorage(T figure);
-
-    T fetchFromStorageByID(long id);
-
-    List<Figure> fetchFromStorageByCriteria(FigureCriteria figureCriteria);
+    List<T> getStorage();
 }

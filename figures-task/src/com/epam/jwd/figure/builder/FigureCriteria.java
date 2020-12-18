@@ -1,37 +1,46 @@
 package com.epam.jwd.figure.builder;
 
-import com.epam.jwd.figure.model.FigureType;
+import java.util.Objects;
 
-public class FigureCriteria {
+public abstract class FigureCriteria {
 
-    private FigureType figureType;
-    private double perimeter;
-    private double area;
+    private final double PERIMETER;
+    private final double AREA;
+    private final double MIN_PERIMETER;
+    private final double MAX_PERIMETER;
+    private final double MIN_AREA;
+    private final double MAX_AREA;
 
-    public FigureCriteria() {
+    public FigureCriteria(double PERIMETER, double AREA, double MIN_PERIMETER, double MAX_PERIMETER, double MIN_AREA, double MAX_AREA) {
+        this.PERIMETER = PERIMETER;
+        this.AREA = AREA;
+        this.MIN_PERIMETER = MIN_PERIMETER;
+        this.MAX_PERIMETER = MAX_PERIMETER;
+        this.MIN_AREA = MIN_AREA;
+        this.MAX_AREA = MAX_AREA;
     }
 
-    public FigureType getFigureType() {
-        return figureType;
+    public double getPERIMETER() {
+        return PERIMETER;
     }
 
-    public void setFigureType(FigureType figureType) {
-        this.figureType = figureType;
+    public double getAREA() {
+        return AREA;
     }
 
-    public double getPerimeter() {
-        return perimeter;
+    public double getMIN_PERIMETER() {
+        return MIN_PERIMETER;
     }
 
-    public void setPerimeter(double perimeter) {
-        this.perimeter = perimeter;
+    public double getMAX_PERIMETER() {
+        return MAX_PERIMETER;
     }
 
-    public double getArea() {
-        return area;
+    public double getMIN_AREA() {
+        return MIN_AREA;
     }
 
-    public void setArea(double area) {
-        this.area = area;
+    public double getMAX_AREA() {
+        return MAX_AREA;
     }
 }

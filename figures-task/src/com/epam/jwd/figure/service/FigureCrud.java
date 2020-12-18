@@ -3,25 +3,27 @@ package com.epam.jwd.figure.service;
 import com.epam.jwd.figure.builder.FigureCriteria;
 import com.epam.jwd.figure.exception.FigureException;
 import com.epam.jwd.figure.model.Figure;
-import com.epam.jwd.figure.model.FigureType;
 import com.epam.jwd.figure.model.impl.Point;
 
 import java.util.List;
-import java.util.Map;
 
-public interface FigureCrud {
+public interface FigureCrud<T extends Figure, V extends FigureCriteria> {
 
-    Figure createFigure(FigureType type, Point... points) throws FigureException;
+    T create(Point... points) throws FigureException;
 
-    List<Figure> multiCreateFigure(Map<FigureType, List<Point[]>> figureCreateInfo) throws FigureException;
+    List<T> multiCreate(List<Point[]> figureCreateInfo) throws FigureException;
 
-    void deleteFigure(Figure figure) throws FigureException;
+    void add(T figure);
 
-    Figure findFigure(Figure figure) throws FigureException;
+    void save(List<T> figures);
 
-    void updateFigure(Figure oldFigure, Figure newFigure) throws FigureException;
+    void delete(T figure);
 
-    Figure findFigureByID(long id) throws FigureException;
+    T find(T figure);
 
-    List<Figure> findFiguresByCriteria(FigureCriteria figureCriteria) throws FigureException;
+    void update(T oldFigure, T newFigure);
+
+    T findByID(long id);
+
+    List<T> findByCriteria(V figureCriteria);
 }

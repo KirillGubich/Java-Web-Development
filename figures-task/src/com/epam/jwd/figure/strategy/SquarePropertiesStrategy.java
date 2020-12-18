@@ -20,21 +20,19 @@ public final class SquarePropertiesStrategy implements FigurePropertiesStrategy 
 
     @Override
     public double calculateArea(Figure figure) {
-
-        Square square = (Square) figure;
-        double sideSize;
-        sideSize = PointLogic.getDistance(square.getA(), square.getB());
-
-        return 4 * sideSize;
-    }
-
-    @Override
-    public double calculatePerimeter(Figure figure) {
-
         Square square = (Square) figure;
         double sideSize;
         sideSize = PointLogic.getDistance(square.getA(), square.getB());
 
         return Math.pow(sideSize, 2);
+    }
+
+    @Override
+    public double calculatePerimeter(Figure figure) {
+        Square square = (Square) figure;
+        double sideSize;
+        sideSize = PointLogic.getDistance(square.getA(), square.getB());
+
+        return 4 * sideSize;
     }
 }

@@ -28,7 +28,7 @@ public class FigureStoragePostProcessor implements FigurePostProcessor {
         figureFromStorage = figureStorageService.fetchFigureFromStorage(figure);
 
         if (figureFromStorage == null) {
-            FigureCacheStorageService.getInstance().addFigureToStorage(figure);
+            figureStorageService.addFigureToStorage(figure);
         } else {
             figure = figureFromStorage;
         }
